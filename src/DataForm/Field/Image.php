@@ -13,9 +13,9 @@ class Image extends File
 
     protected $image;
     protected $image_callable;
-    protected $resize = array();
-    protected $fit = array();
-    protected $preview = array(120, 80);
+    protected $resize = [];
+    protected $fit = [];
+    protected $preview = [120, 80];
 
     public function __construct($name, $label, &$model = null, &$model_relations = null)
     {
@@ -47,7 +47,7 @@ class Image extends File
      */
     public function resize($width, $height, $filename = null)
     {
-        $this->resize[] = array('width'=>$width, 'height'=>$height,  'filename'=>$filename);
+        $this->resize[] = ['width'=>$width, 'height'=>$height,  'filename'=>$filename];
 
         return $this;
     }
@@ -61,7 +61,7 @@ class Image extends File
      */
     public function fit($width, $height, $filename = null)
     {
-        $this->fit[] = array('width'=>$width, 'height'=>$height,  'filename'=>$filename);
+        $this->fit[] = ['width'=>$width, 'height'=>$height,  'filename'=>$filename];
 
         return $this;
     }
@@ -74,7 +74,7 @@ class Image extends File
      */
     public function preview($width, $height)
     {
-        $this->preview = array($width, $height);
+        $this->preview = [$width, $height];
 
         return $this;
     }
@@ -142,7 +142,7 @@ class Image extends File
             case "modify":
                 if ($this->old_value != "") {
                     $output .= '<div class="clearfix">';
-                    $output .= $this->thumb()." &nbsp;".link_to($this->web_path.$this->value, $this->value, array('target'=>'_blank'))."<br />\n";
+                    $output .= $this->thumb()." &nbsp;".link_to($this->web_path.$this->value, $this->value, ['target'=>'_blank'])."<br />\n";
                     $output .= Form::checkbox($this->name.'_remove', 1, (bool) Input::get($this->name.'_remove'))." ".trans('rapyd::rapyd.delete')." <br/>\n";
                     $output .= '</div>';
                 }

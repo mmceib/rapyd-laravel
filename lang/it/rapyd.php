@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => 'Salva',
     'undo'    => 'Annulla',
     'show'    => 'Visualizza',
@@ -21,4 +21,4 @@ return array(
     'no_records' => 'Non ci sono record da mostrare',
     'conf_delete'=> 'Vuoi davvero eliminare il record corrente?',
 
-);
+];

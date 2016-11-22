@@ -92,8 +92,8 @@ class Datetime extends Field
     {
         $format = $this->format;
         $format = str_replace(
-            array('d',  'm',  'Y', 'H', 'i', 's', 'a', 'A', 'g', 'G'),
-            array('dd', 'mm', 'yyyy', 'hh', 'ii', 'ss', 'p', 'P', 'H', 'h'),
+            ['d',  'm',  'Y', 'H', 'i', 's', 'a', 'A', 'g', 'G'],
+            ['dd', 'mm', 'yyyy', 'hh', 'ii', 'ss', 'p', 'P', 'H', 'h'],
             $format
         );
 

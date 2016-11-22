@@ -13,7 +13,7 @@ class Parser extends BladeCompiler
      * @param  array  $args  variables to be extracted
      * @return string the compiled output
      */
-    public function compileString($value, array $args = array())
+    public function compileString($value, array $args = [])
     {
         $generated = parent::compileString($value);
 

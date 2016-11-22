@@ -14,8 +14,8 @@ class Persistence
         if ($qs) {
             $base = str_replace(Request::path(), '', strtok(Request::fullUrl(), '?'));
             $url = str_replace($base, '/', strtok($url, '?'));
-            $old_params_arr = array();
-            $qs_arr = array();
+            $old_params_arr = [];
+            $qs_arr = [];
             parse_str($old_params, $old_params_arr);
             parse_str($qs, $qs_arr);
             $s = $url.'?'.http_build_query(array_merge($old_params_arr, $qs_arr));

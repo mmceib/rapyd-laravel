@@ -14,7 +14,7 @@ class DataFilter extends DataForm
     public $source;
     protected $process_url = '';
     protected $reset_url = '';
-    public $attributes = array('class'=>'form-inline');
+    public $attributes = ['class'=>'form-inline'];
     /**
      *
      * @var \Illuminate\Database\Query\Builder
@@ -112,7 +112,7 @@ class DataFilter extends DataForm
                             || is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\BelongsToMany')
                         ) {
                             if (is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\BelongsTo') and
-                                in_array($field->type, array('select', 'radiogroup', 'autocomplete'))
+                                in_array($field->type, ['select', 'radiogroup', 'autocomplete'])
                             ) {
                                     $deep_where = false;
                             } else {
@@ -135,7 +135,7 @@ class DataFilter extends DataForm
                             if ((is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\BelongsToMany')
                                 || is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\BelongsTo')
                                 ) and
-                                in_array($field->type, array('tags','checks','multiselect'))
+                                in_array($field->type, ['tags','checks','multiselect'])
                             ) {
                                   $values = explode($field->serialization_sep, $value);
 

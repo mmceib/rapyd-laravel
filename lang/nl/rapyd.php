@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => 'Opslaan',
     'undo'    => 'Ongedaan maken',
     'show'    => 'Toon',
@@ -21,4 +21,4 @@ return array(
     'no_records' => 'Er is niets te tonen.',
     'conf_delete'=> 'Wil je deze record verwijderen?',
 
-);
+];

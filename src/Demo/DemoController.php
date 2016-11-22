@@ -75,34 +75,34 @@ class DemoController extends Controller
 
         //populate all tables
         $users = \DB::table('demo_users');
-        $users->insert(array('firstname' => 'Jhon', 'lastname' => 'Doe'));
-        $users->insert(array('firstname' => 'Jane', 'lastname' => 'Doe'));
+        $users->insert(['firstname' => 'Jhon', 'lastname' => 'Doe']);
+        $users->insert(['firstname' => 'Jane', 'lastname' => 'Doe']);
 
         $categories = \DB::table('demo_categories');
         for ($i=1; $i<=5; $i++) {
-            $categories->insert(array(
-                    'name' => 'Category '.$i));
+            $categories->insert([
+                    'name' => 'Category '.$i]);
         }
         $articles = \DB::table('demo_articles');
         for ($i=1; $i<=20; $i++) {
-            $articles->insert(array(
+            $articles->insert([
                     'author_id' => rand(1, 2),
                     'title' => 'Article '.$i,
                     'body' => 'Body of article '.$i,
                     'publication_date' => date('Y-m-d'),
-                    'public' => true,));
+                    'public' => true,]);
         }
         $categories =  \DB::table('demo_article_category');
-        $categories->insert(array('article_id' => 1,'category_id' => 1));
-        $categories->insert(array('article_id' => 1,'category_id' => 2));
-        $categories->insert(array('article_id' => 20,'category_id' => 2));
-        $categories->insert(array('article_id' => 20,'category_id' => 3));
+        $categories->insert(['article_id' => 1,'category_id' => 1]);
+        $categories->insert(['article_id' => 1,'category_id' => 2]);
+        $categories->insert(['article_id' => 20,'category_id' => 2]);
+        $categories->insert(['article_id' => 20,'category_id' => 3]);
 
         $comments =  \DB::table('demo_comments');
-        $comments->insert(array(
+        $comments->insert([
                 'user_id' => 1,
                 'article_id' => 2,
-                'comment' => 'Comment for Article 2'));
+                'comment' => 'Comment for Article 2']);
 
         $files = glob(public_path().'/uploads/demo/*');
         foreach ($files as $file) {
@@ -205,7 +205,7 @@ class DemoController extends Controller
         $filter->build();
 
         $grid = \DataGrid::source($filter);
-        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->attributes(["class"=>"table table-striped"]);
         $grid->add('id', 'ID', true)->style("width:70px");
         $grid->add('title', 'Title', true);
         $grid->add('author.fullname', 'Author');
@@ -267,7 +267,7 @@ class DemoController extends Controller
         $form->add('author_id', 'Author', 'autocomplete')->options(Author::lists('firstname', 'id')->all());
 
         //autocomplete with relation.field to manage a belongsToMany
-        $form->add('author.fullname', 'Author', 'autocomplete')->search(array("firstname", "lastname"));
+        $form->add('author.fullname', 'Author', 'autocomplete')->search(["firstname", "lastname"]);
 
         //autocomplete with relation.field,  returned key,  custom remote ajax call (see at bottom)
         $form->add('author.firstname', 'Author', 'autocomplete')->remote(null, "id", "/rapyd-demo/authorlist");
@@ -316,7 +316,7 @@ class DemoController extends Controller
         $edit->add('title', 'Title', 'text')->rule('required|min:5');
 
         $edit->add('body', 'Body', 'redactor');
-        $edit->add('detail.note', 'Note', 'textarea')->attributes(array('rows'=>2));
+        $edit->add('detail.note', 'Note', 'textarea')->attributes(['rows'=>2]);
         $edit->add('detail.note_tags', 'Note tags', 'text');
         $edit->add('author_id', 'Author', 'select')->options(Author::lists("firstname", "id")->all());
         $edit->add('publication_date', 'Date', 'date')->format('d/m/Y', 'it');
@@ -365,7 +365,7 @@ class DemoController extends Controller
     public function getNudegrid()
     {
         $grid = \DataGrid::source(Article::with('author', 'categories'));
-        $grid->attributes(array("class"=>"table table-striped"));
+        $grid->attributes(["class"=>"table table-striped"]);
         $grid->add('id', 'ID', true)->style("width:70px");
         $grid->add('title', 'Title', true);
         $grid->edit('/rapyd-demo/nudeedit', 'Edit', 'modify|delete');

@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => 'حفظ',
     'undo'    => 'تراجع',
     'show'    => 'عرض',
@@ -21,4 +21,4 @@ return array(
     'conf_delete'=> 'هل أنت متأكّد من حذف السجل؟',
     'no_records' => 'لا توجد اى بيانات للعرض'
 
-);
+];

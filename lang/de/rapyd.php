@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => 'speichern',
     'undo'    => 'zurück',
     'show'    => 'anzeigen',
@@ -19,4 +19,4 @@ return array(
     'err_unknown'=> 'Kein Eintrag ausgewählt.',
     'err_dup_pk' => 'Fehler. Primary key bereits vorhanden.',
     'conf_delete'=> 'Eintrag löschen?',
-);
+];

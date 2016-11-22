@@ -6,11 +6,11 @@ class Url
 {
     public $url;
 
-    protected $semantic = array( 'page'    , 'orderby',
+    protected $semantic = [ 'page'    , 'orderby',
                                  'show'   , 'modify' ,
                                  'create' , 'insert' ,
                                  'update' , 'delete' ,
-                                 'process');
+                                 'process'];
 
     public static function unparse_str($array)
     {
@@ -61,7 +61,7 @@ class Url
     public function append($key, $value)
     {
         $url      = $this->get();
-        $qs_array = array();
+        $qs_array = [];
 
         if (strpos($url, '?') !== false) {
             $qs  = substr($url, strpos($url, '?') + 1);
@@ -79,7 +79,7 @@ class Url
 
     public function remove($keys)
     {
-        $qs_array = array();
+        $qs_array = [];
         $url      = $this->get();
 
         if (strpos($url, '?') === false) {
@@ -100,7 +100,7 @@ class Url
                 return $this;
             }
 
-            $keys = array($keys);
+            $keys = [$keys];
         }
         foreach ($keys as $key) {
             unset($qs_array[$key]);
@@ -128,7 +128,7 @@ class Url
 
     public function replace($key, $newkey)
     {
-        $qs_array = array();
+        $qs_array = [];
         $url      = $this->get();
 
         if (strpos($url, '?') !== false) {

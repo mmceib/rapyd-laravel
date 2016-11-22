@@ -16,8 +16,8 @@ class DataEdit extends DataForm
     protected $postprocess_url = "";
     protected $undo_url = "";
     public $back_url = "";
-    public $back_on = array();
-    public $buttons = array();
+    public $back_on = [];
+    public $buttons = [];
 
     public function __construct()
     {

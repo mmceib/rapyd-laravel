@@ -9,12 +9,12 @@ class Column
     public $label = "";
     public $orderby = null;
     public $orderby_field = null;
-    public $attributes = array();
-    public $filters = array();
+    public $attributes = [];
+    public $filters = [];
 
     public $key = 'id';
     public $uri = null;
-    public $actions = array();
+    public $actions = [];
 
     public $value = null;
     public $cell_callable;

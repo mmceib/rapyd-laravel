@@ -71,11 +71,11 @@ class DataForm extends Widget
     public $model;
     public $model_relations;
     public $validator;
-    public $validator_messages = array();
+    public $validator_messages = [];
     
     public $output = "";
     public $custom_output = null;
-    public $fields = array();
+    public $fields = [];
     public $hash = "";
     public $error = "";
 
@@ -183,9 +183,9 @@ class DataForm extends Widget
      *
      * @return $this
      */
-    public function submit($name, $position = "BL", $options = array())
+    public function submit($name, $position = "BL", $options = [])
     {
-        $options = array_merge(array("class" => "btn btn-primary"), $options);
+        $options = array_merge(["class" => "btn btn-primary"], $options);
         $this->button_container[$position][] = Form::submit($name, $options);
 
         return $this;
@@ -198,7 +198,7 @@ class DataForm extends Widget
      *
      * @return $this
      */
-    public function reset($name = "", $position = "BL", $options = array())
+    public function reset($name = "", $position = "BL", $options = [])
     {
         if ($name == "") {
             $name = trans('rapyd::rapyd.reset');
@@ -214,7 +214,7 @@ class DataForm extends Widget
      * @param array $attributes
      * @return \Zofe\Rapyd\DataForm\Field $field
      */
-    public function field($field_name, array $attributes = array())
+    public function field($field_name, array $attributes = [])
     {
         if (isset($this->fields[$field_name])) {
             $field = $this->fields[$field_name];
@@ -233,7 +233,7 @@ class DataForm extends Widget
      * @param  array  $ttributes
      * @return string
      */
-    public function render($field_name, array $attributes = array())
+    public function render($field_name, array $attributes = [])
     {
         $field = $this->field($field_name, $attributes);
 
@@ -452,12 +452,12 @@ class DataForm extends Widget
 
     public function prepareForm()
     {
-        $form_attr = array('url' => $this->process_url, 'class' => "form-horizontal", 'role' => "form", 'method' => $this->method);
+        $form_attr = ['url' => $this->process_url, 'class' => "form-horizontal", 'role' => "form", 'method' => $this->method];
         $form_attr = array_merge($form_attr, $this->attributes);
 
         // See if we need a multipart form
         foreach ($this->fields as $field_obj) {
-            if (in_array($field_obj->type, array('file','image'))) {
+            if (in_array($field_obj->type, ['file','image'])) {
                 $form_attr['files'] = 'true';
                 break;
             }
@@ -684,7 +684,7 @@ class DataForm extends Widget
         if (class_exists($classname)) {
             array_push($arguments, $name);
 
-            return  call_user_func_array(array($this, "add"), $arguments);
+            return  call_user_func_array([$this, "add"], $arguments);
         }
     }
 }

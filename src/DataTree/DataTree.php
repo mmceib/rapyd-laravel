@@ -12,7 +12,7 @@ use Zofe\Rapyd\Persistence;
 
 class DataTree extends DataGrid
 {
-    public $attributes = array("class" => "datatree", "method" => "POST");
+    public $attributes = ["class" => "datatree", "method" => "POST"];
     public $data;
     public $source;
 
@@ -59,7 +59,7 @@ class DataTree extends DataGrid
         Persistence::save();
         $this->rows = $this->makeRowsRecursive($this->data);
 
-        $this->output = \View::make($view, array('dg' => $this, 'buttons' => $this->button_container, 'label' => $this->label))->render();
+        $this->output = \View::make($view, ['dg' => $this, 'buttons' => $this->button_container, 'label' => $this->label])->render();
         return $this->output;
     }
 
@@ -277,18 +277,18 @@ class DataTree extends DataGrid
     {
         $row = new Row($item);
 
-        $row->children = array();
+        $row->children = [];
 
-        $row->attributes(array(
+        $row->attributes([
             'class' => 'datatree-item',
             'data-id' => $row->data->getKey()
-        ));
+        ]);
         $index = 0;
         foreach ($this->columns as $column) {
             $index++;
 
             $cell = new Cell($column->name);
-            $attrs = array();
+            $attrs = [];
             $attrs['data-field-name'] = strpos(
                 $column->name,
                 '{{'
@@ -324,9 +324,9 @@ class DataTree extends DataGrid
      *
      * @return $this
      */
-    public function submit($name, $position = "BL", $options = array())
+    public function submit($name, $position = "BL", $options = [])
     {
-        $options = array_merge(array("class" => "btn btn-primary"), $options);
+        $options = array_merge(["class" => "btn btn-primary"], $options);
         $this->button_container[$position][] = Form::submit($name, $options);
 
         return $this;

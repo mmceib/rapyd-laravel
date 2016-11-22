@@ -30,7 +30,7 @@ class Checkboxgroup extends Field
             $this->values = explode($this->serialization_sep, $this->value);
         }
 
-        $description_arr = array();
+        $description_arr = [];
         foreach ($this->options as $value => $description) {
             if (in_array($value, $this->values)) {
                 $description_arr[] = $description;

@@ -55,7 +55,7 @@ class Tags extends Field
         parent::getValue();
 
         if (count($this->local_options)) {
-            $description_arr = array();
+            $description_arr = [];
             $this->fill_tags = "";
             foreach ($this->options as $value => $description) {
                 if (in_array($value, $this->values)) {
@@ -115,7 +115,7 @@ class Tags extends Field
             $hash = substr(md5(serialize($data)), 0, 12);
             Session::put($hash, $data);
 
-            $this->remote = route('rapyd.remote', array('hash'=> $hash));
+            $this->remote = route('rapyd.remote', ['hash'=> $hash]);
         }
 
         return $this;
@@ -159,7 +159,7 @@ class Tags extends Field
 
             case "create":
             case "modify":
-                $output  =  Form::text($this->name, '', array_merge($this->attributes, array('id'=>"".$this->name)))."\n";
+                $output  =  Form::text($this->name, '', array_merge($this->attributes, ['id'=>"".$this->name]))."\n";
                 if ($this->remote) {
                     $script = <<<acp
 

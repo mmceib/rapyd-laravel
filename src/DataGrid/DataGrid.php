@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\Config;
 class DataGrid extends DataSet
 {
 
-    protected $fields = array();
+    protected $fields = [];
     /** @var Column[]  */
-    public $columns = array();
-    public $headers = array();
-    public $rows = array();
+    public $columns = [];
+    public $headers = [];
+    public $rows = [];
     public $output = "";
-    public $attributes = array("class" => "table");
+    public $attributes = ["class" => "table"];
     public $checkbox_form = false;
     
-    protected $row_callable = array();
+    protected $row_callable = [];
 
     /**
      * @param string $name
@@ -30,7 +30,7 @@ class DataGrid extends DataSet
     {
         $column = new Column($name, $label, $orderby);
         $this->columns[$column->name] = $column;
-        if (!in_array($name, array("_edit"))) {
+        if (!in_array($name, ["_edit"])) {
             $this->headers[] = $label;
         }
         if ($orderby) {
@@ -73,11 +73,11 @@ class DataGrid extends DataSet
             }
             $this->rows[] = $row;
         }
-        $this->output = \View::make($view, array('dg' => $this, 'buttons'=>$this->button_container, 'label'=>$this->label))->render();
+        $this->output = \View::make($view, ['dg' => $this, 'buttons'=>$this->button_container, 'label'=>$this->label])->render();
         return $this->output;
     }
 
-    public function buildCSV($file = '', $timestamp = '', $sanitize = true, $del = array())
+    public function buildCSV($file = '', $timestamp = '', $sanitize = true, $del = [])
     {
         $this->limit = null;
         parent::build();
@@ -91,7 +91,7 @@ class DataGrid extends DataSet
         $save = (bool) strpos($file, "/");
 
         //Delimiter
-        $delimiter = array();
+        $delimiter = [];
         $delimiter['delimiter'] = isset($del['delimiter']) ? $del['delimiter'] : ';';
         $delimiter['enclosure'] = isset($del['enclosure']) ? $del['enclosure'] : '"';
         $delimiter['line_ending'] = isset($del['line_ending']) ? $del['line_ending'] : "\n";
@@ -99,11 +99,11 @@ class DataGrid extends DataSet
         if ($save) {
             $handle = fopen(public_path().'/'.dirname($file)."/".$filename, 'w');
         } else {
-            $headers  = array(
+            $headers  = [
                 'Content-Type' => 'text/csv',
                 'Pragma'=>'no-cache',
                 '"Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-                'Content-Disposition' => 'attachment; filename="' . $filename.'"');
+                'Content-Disposition' => 'attachment; filename="' . $filename.'"'];
 
             $handle = fopen('php://output', 'w');
             ob_start();
@@ -115,7 +115,7 @@ class DataGrid extends DataSet
             $row = new Row($tablerow);
 
             foreach ($this->columns as $column) {
-                if (in_array($column->name, array("_edit"))) {
+                if (in_array($column->name, ["_edit"])) {
                     continue;
                 }
 
@@ -208,7 +208,7 @@ class DataGrid extends DataSet
             $key = ($column->key != '') ?  $column->key : $this->key;
             $keyvalue = @$tablerow->{$key};
 
-            $value = \View::make('rapyd::datagrid.actions', array('uri' => $column->uri, 'id' => $keyvalue, 'actions' => $column->actions));
+            $value = \View::make('rapyd::datagrid.actions', ['uri' => $column->uri, 'id' => $keyvalue, 'actions' => $column->actions]);
         }
 
         return $value;

@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => 'Sauvegarder',
     'undo'    => 'Annuler',
     'show'    => 'Afficher',
@@ -20,4 +20,4 @@ return array(
     'err_dup_pk' => 'Erreur, clef primaire dupliqué',
     'conf_delete'=> 'Voulez vous supprimer cet enregistrement?',
 
-);
+];

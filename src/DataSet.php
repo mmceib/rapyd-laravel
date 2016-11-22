@@ -20,7 +20,7 @@ class DataSet extends Widget
      */
     public $query;
     public $url  ;
-    public $data = array();
+    public $data = [];
     public $hash = '';
     public $key  = 'id';
 
@@ -83,7 +83,7 @@ class DataSet extends Widget
 
     public function orderBy($field, $direction = "asc")
     {
-        $this->orderby = array($field, $direction);
+        $this->orderby = [$field, $direction];
 
         return $this;
     }
@@ -173,7 +173,7 @@ class DataSet extends Widget
                 //orderby
                 if (isset($this->orderby)) {
                     list($field, $direction) = $this->orderby;
-                    $column = array();
+                    $column = [];
                     foreach ($this->source as $key => $row) {
                         $column[$key] = is_object($row) ? $row->{$field} : $row[$field];
                     }

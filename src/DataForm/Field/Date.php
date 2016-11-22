@@ -82,8 +82,8 @@ class Date extends Field
     {
         $format = $this->format;
         $format = str_replace(
-            array('d',  'm',  'Y'),
-            array('dd', 'mm', 'yyyy'),
+            ['d',  'm',  'Y'],
+            ['dd', 'mm', 'yyyy'],
             $format
         );
 

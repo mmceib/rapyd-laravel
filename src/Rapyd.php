@@ -8,11 +8,11 @@ class Rapyd
 {
 
     protected static $container;
-    protected static $js         = array();
-    protected static $css        = array();
-    protected static $tag        = array();
-    protected static $scripts    = array();
-    protected static $styles     = array();
+    protected static $js         = [];
+    protected static $css        = [];
+    protected static $tag        = [];
+    protected static $scripts    = [];
+    protected static $styles     = [];
     protected static $form;
 
     /**

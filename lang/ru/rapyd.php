@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => 'Сохранить',
     'undo'    => 'Отменить',
     'show'    => 'Показать',
@@ -21,4 +21,4 @@ return array(
     'no_records' => 'Записей не найдено.',
     'conf_delete'=> 'Вы хотите удалить запись?',
 
-);
+];

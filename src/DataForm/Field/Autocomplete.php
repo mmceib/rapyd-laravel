@@ -101,7 +101,7 @@ class Autocomplete extends Field
             $hash = substr(md5(serialize($data)), 0, 12);
             Session::put($hash, $data);
 
-            $this->remote = route('rapyd.remote', array('hash'=> $hash));
+            $this->remote = route('rapyd.remote', ['hash'=> $hash]);
         }
 
         return $this;
@@ -162,8 +162,8 @@ class Autocomplete extends Field
                     $autocomplete = $this->value;
                 }
 
-                $output  =  Form::text("auto_".$this->name, $autocomplete, array_merge($this->attributes, array('id'=>"auto_".$this->name)))."\n";
-                $output .=  Form::hidden($this->name, $this->value, array('id'=>$this->name));
+                $output  =  Form::text("auto_".$this->name, $autocomplete, array_merge($this->attributes, ['id'=>"auto_".$this->name]))."\n";
+                $output .=  Form::hidden($this->name, $this->value, ['id'=>$this->name]);
                 $output  =  '<span id="th_'.$this->name.'">'.$output.'</span>';
 
                 if ($this->remote) {

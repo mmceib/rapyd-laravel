@@ -27,7 +27,7 @@ abstract class Field extends Widget
     public $output = "";
     public $visible = true;
     public $extra_output = "";
-    public $extra_attributes = array();
+    public $extra_attributes = [];
     public $callable;
 
     public $serialization_sep = '|';
@@ -53,11 +53,11 @@ abstract class Field extends Widget
     public $update_description = null;
     public $show_value = null; //default value in visualization
     public $edited = false;
-    public $options = array();
+    public $options = [];
     public $mask = null;
     public $group;
     public $value = null;
-    public $values = array();
+    public $values = [];
     public $new_value;
     public $old_value = null;
     public $request_refill = true;
@@ -70,7 +70,7 @@ abstract class Field extends Widget
     public $has_label = true;
     public $has_wrapper = true;
     public $has_error = '';
-    public $messages = array();
+    public $messages = [];
     public $query_scope;
     public $query_scope_params = [];
     
@@ -81,11 +81,11 @@ abstract class Field extends Widget
     public $with_xss_filter = true;
 
     // layout
-    public $layout = array(
+    public $layout = [
         'field_separator' => '<br />',
         'option_separator' => '',
         'null_label' => '[null]',
-    );
+    ];
 
     public $rule = [];
 
@@ -144,7 +144,7 @@ abstract class Field extends Widget
         }
 
         //otherwise replace dots with underscores so field names are html/js friendly
-        $this->name = str_replace(array(".", ",", "`"), array("_", "_", "_"), $name);
+        $this->name = str_replace([".", ",", "`"], ["_", "_", "_"], $name);
 
         if (!isset($this->db_name)) {
             $this->db_name = $name;
@@ -293,7 +293,7 @@ abstract class Field extends Widget
         $process = (Input::get('search') || Input::get('save')) ? true : false;
 
         //fix, don't refill on file fields
-        if (in_array($this->type, array('file','image'))) {
+        if (in_array($this->type, ['file','image'])) {
             $this->request_refill = false;
         }
 
@@ -336,7 +336,7 @@ abstract class Field extends Widget
                 case $this->relation instanceof \Illuminate\Database\Eloquent\Relations\BelongsToMany:
                     // some kind of field on belongsToMany works with multiple values, most of time in serialized way
                     //in this case I need to fill value using a serialized array of related collection
-                    if (in_array($this->type, array('tags','checks','multiselect'))) {
+                    if (in_array($this->type, ['tags','checks','multiselect'])) {
                         $relatedCollection = $this->relation->get(); //Collection of attached models
                         $relatedIds = $relatedCollection->modelKeys(); //array of attached models ids
                         $this->value = implode($this->serialization_sep, $relatedIds);
@@ -642,12 +642,12 @@ abstract class Field extends Widget
         $this->getValue();
 //        $this->star = (!($this->status == "show") and $this->required) ? '&nbsp;*' : '';
         $this->req = (!($this->status == "show") and $this->required) ? ' required' : '';
-        if (($this->status == "hidden" || $this->visible === false || in_array($this->type, array("hidden", "auto")))) {
+        if (($this->status == "hidden" || $this->visible === false || in_array($this->type, ["hidden", "auto"]))) {
             $this->is_hidden = true;
         }
         $this->message = implode("<br />\n", $this->messages);
 
-        $attributes = array('onchange', 'type', 'size', 'style', 'class', 'rows', 'cols', 'placeholder');
+        $attributes = ['onchange', 'type', 'size', 'style', 'class', 'rows', 'cols', 'placeholder'];
 
         foreach ($attributes as $attribute) {
             if (isset($this->$attribute)) {

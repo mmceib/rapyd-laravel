@@ -32,7 +32,7 @@ class Documenter
         $code       = "\n".$definition."\n....\n\n";
 
         if (!is_array($methods)) {
-            $methods = array($methods);
+            $methods = [$methods];
         }
 
         foreach ($methods as $method) {
