@@ -9,6 +9,8 @@ class Documenter extends Facade
    *
    * @return string
    */
-  protected static function getFacadeAccessor() { return 'Zofe\Rapyd\Documenter'; }
-
+    protected static function getFacadeAccessor()
+    {
+        return 'Zofe\Rapyd\Documenter';
+    }
 }

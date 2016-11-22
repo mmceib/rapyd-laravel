@@ -27,7 +27,7 @@ class Datetime extends Field
      * @param $format valid php datetime format
      * @param string $language valid datetimePicker language string http://www.malot.fr/bootstrap-datetimepicker/
      */
-    public function format($format, $language = 'en', $store_as =null)
+    public function format($format, $language = 'en', $store_as = null)
     {
         $this->format = $format;
         $this->language = $language;
@@ -42,8 +42,10 @@ class Datetime extends Field
      */
     protected function isodatetimeToHuman($isodatetime)
     {
-        $datetime = \DateTime::createFromFormat( $this->store_as, $isodatetime);
-        if (!$datetime) return '';
+        $datetime = \DateTime::createFromFormat($this->store_as, $isodatetime);
+        if (!$datetime) {
+            return '';
+        }
         $timestamp = $datetime->getTimestamp();
         if ($timestamp < 1) {
             return "";
@@ -58,8 +60,10 @@ class Datetime extends Field
      */
     protected function humandatetimeToIso($humandatetime)
     {
-        $datetime = \DateTime::createFromFormat( $this->format, $humandatetime);
-        if (!$datetime) return '';
+        $datetime = \DateTime::createFromFormat($this->format, $humandatetime);
+        if (!$datetime) {
+            return '';
+        }
         $timestamp = $datetime->getTimestamp();
         if ($timestamp < 1) {
             return "";
@@ -87,9 +91,10 @@ class Datetime extends Field
     protected function formatTodatetime()
     {
         $format = $this->format;
-        $format = str_replace(array('d',  'm',  'Y', 'H', 'i', 's', 'a', 'A', 'g', 'G'),
-                              array('dd', 'mm', 'yyyy', 'hh', 'ii', 'ss', 'p', 'P', 'H', 'h'),
-                             $format
+        $format = str_replace(
+            ['d',  'm',  'Y', 'H', 'i', 's', 'a', 'A', 'g', 'G'],
+            ['dd', 'mm', 'yyyy', 'hh', 'ii', 'ss', 'p', 'P', 'H', 'h'],
+            $format
         );
 
         return $format;
@@ -100,10 +105,11 @@ class Datetime extends Field
         $output = "";
 
         unset($this->attributes['type']);
-        if (parent::build() === false) return;
+        if (parent::build() === false) {
+            return;
+        }
 
         switch ($this->status) {
-
             case "show":
                 if (!isset($this->value)) {
                     $value = $this->layout['null_label'];
@@ -128,7 +134,7 @@ class Datetime extends Field
                     Rapyd::js('datetimepicker/locales/bootstrap-datetimepicker.'.$this->language.'.js');
                 }
                 
-                $output  = Form::text($this->name, $this->value,  $this->attributes);
+                $output  = Form::text($this->name, $this->value, $this->attributes);
                 Rapyd::script("
                         $('#".$this->name."').datetimepicker({
                             format: '{$this->formatTodatetime()}',
@@ -141,9 +147,9 @@ class Datetime extends Field
             case "hidden":
                 $output = Form::hidden($this->db_name, $this->value);
                 break;
-            default:;
+            default:
+                ;
         }
         $this->output = $output;
     }
-
 }

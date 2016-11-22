@@ -37,8 +37,9 @@ class Checkbox extends Field
     public function build()
     {
         $output = "";
-        if (parent::build() === false)
+        if (parent::build() === false) {
             return;
+        }
 
         switch ($this->status) {
             case "disabled":
@@ -54,7 +55,7 @@ class Checkbox extends Field
             case "create":
             case "modify":
                 //dd($this->checked);
-                $this->attributes = str_replace('form-control','',$this->attributes);
+                $this->attributes = str_replace('form-control', '', $this->attributes);
                 $output = Form::checkbox($this->name, $this->checked_value, $this->checked, $this->attributes) .' '. $this->extra_output;
                 break;
 
@@ -66,5 +67,4 @@ class Checkbox extends Field
         }
         $this->output = $output;
     }
-
 }

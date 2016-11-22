@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => '保存',
     'undo'    => '撤销改动',
     'show'    => '显示详情',
@@ -21,4 +21,4 @@ return array(
     'no_records' => '没有可以显示的数据。',
     'conf_delete'=> '你确定要删除这行数据?',
 
-);
+];

@@ -8,7 +8,7 @@ class Author extends \Eloquent
 
     protected $table = 'demo_users';
 
-    protected $appends = array('fullname');
+    protected $appends = ['fullname'];
 
     public function articles()
     {
@@ -24,5 +24,4 @@ class Author extends \Eloquent
     {
         return $this->firstname ." ". $this->lastname;
     }
-
 }

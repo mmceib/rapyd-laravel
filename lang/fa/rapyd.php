@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => 'ذخیره',
     'undo'    => 'بازگرداندن',
     'show'    => 'نمایش',
@@ -20,4 +20,4 @@ return array(
     'err_dup_pk' => 'خطا، فیلد یگانه تکراری',
     'conf_delete'=> 'از حذف اطمینان دارید ؟',
 
-);
+];

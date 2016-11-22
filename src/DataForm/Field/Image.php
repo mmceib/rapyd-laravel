@@ -13,9 +13,9 @@ class Image extends File
 
     protected $image;
     protected $image_callable;
-    protected $resize = array();
-    protected $fit = array();
-    protected $preview = array(120, 80);
+    protected $resize = [];
+    protected $fit = [];
+    protected $preview = [120, 80];
 
     public function __construct($name, $label, &$model = null, &$model_relations = null)
     {
@@ -47,7 +47,7 @@ class Image extends File
      */
     public function resize($width, $height, $filename = null)
     {
-        $this->resize[] = array('width'=>$width, 'height'=>$height,  'filename'=>$filename);
+        $this->resize[] = ['width'=>$width, 'height'=>$height,  'filename'=>$filename];
 
         return $this;
     }
@@ -61,7 +61,7 @@ class Image extends File
      */
     public function fit($width, $height, $filename = null)
     {
-        $this->fit[] = array('width'=>$width, 'height'=>$height,  'filename'=>$filename);
+        $this->fit[] = ['width'=>$width, 'height'=>$height,  'filename'=>$filename];
 
         return $this;
     }
@@ -74,7 +74,7 @@ class Image extends File
      */
     public function preview($width, $height)
     {
-        $this->preview = array($width, $height);
+        $this->preview = [$width, $height];
 
         return $this;
     }
@@ -85,7 +85,9 @@ class Image extends File
     protected function imageProcess()
     {
         if ($this->saved) {
-            if (!$this->image)  $this->image = ImageManager::make($this->saved);
+            if (!$this->image) {
+                $this->image = ImageManager::make($this->saved);
+            }
 
             if ($this->image_callable) {
                 $callable = $this->image_callable;
@@ -105,26 +107,27 @@ class Image extends File
                     $this->image->save($fit["filename"]);
                 }
             }
-
         }
     }
 
     public function thumb()
     {
-        if (!\File::exists($this->path.$this->old_value)) return '';
+        if (!\File::exists($this->path.$this->old_value)) {
+            return '';
+        }
         return '<img src="'.ImageManager::make($this->path.$this->old_value)->fit($this->preview[0], $this->preview[1])->encode('data-url').'" class="pull-left" style="margin:0 10px 10px 0">';
     }
 
     public function build()
     {
         $output = "";
-        if (parent::build() === false)
+        if (parent::build() === false) {
             return;
+        }
 
         switch ($this->status) {
             case "disabled":
             case "show":
-
                 if ($this->type == 'hidden' || $this->value == "") {
                     $output = "";
                 } elseif ((!isset($this->value))) {
@@ -139,7 +142,7 @@ class Image extends File
             case "modify":
                 if ($this->old_value != "") {
                     $output .= '<div class="clearfix">';
-                    $output .= $this->thumb()." &nbsp;".link_to($this->web_path.$this->value, $this->value, array('target'=>'_blank'))."<br />\n";
+                    $output .= $this->thumb()." &nbsp;".link_to($this->web_path.$this->value, $this->value, ['target'=>'_blank'])."<br />\n";
                     $output .= Form::checkbox($this->name.'_remove', 1, (bool) Input::get($this->name.'_remove'))." ".trans('rapyd::rapyd.delete')." <br/>\n";
                     $output .= '</div>';
                 }
@@ -150,9 +153,9 @@ class Image extends File
                 $output = Form::hidden($this->name, $this->value);
                 break;
 
-            default:;
+            default:
+                ;
         }
         $this->output = "\n" . $output . "\n" . $this->extra_output . "\n";
     }
-
 }

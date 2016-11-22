@@ -5,7 +5,7 @@ use Zofe\Rapyd\Helpers\HTML;
 class Cell
 {
     public $name = null;
-    public $attributes = array();
+    public $attributes = [];
     public $value = null;
 
     public function __construct($name)
@@ -40,11 +40,12 @@ class Cell
 
     public function parseFilters($filters)
     {
-        if (count($filters) < 1)
+        if (count($filters) < 1) {
             return false;
+        }
 
         foreach ($filters as $filter) {
-            $params = array();
+            $params = [];
             if (preg_match('/([^\[]*+)\[(.+)\]/', $filter, $match)) {
                 $filter   = $match[1];
                 $params = explode(',', $match[2]);
@@ -62,16 +63,12 @@ class Cell
                 } catch (\Exception $e) {
                     return false;
                 }
-
             }
-
         }
-
     }
 
     public function __toString()
     {
         return $this->value;
     }
-
 }

@@ -21,7 +21,7 @@ class RapydServiceProvider extends ServiceProvider
         
         //config
         $this->publishes([__DIR__.'/../config/rapyd.php' => config_path('rapyd.php')], 'config');
-        $this->mergeConfigFrom( __DIR__.'/../config/rapyd.php', 'rapyd');
+        $this->mergeConfigFrom(__DIR__.'/../config/rapyd.php', 'rapyd');
 
         
         
@@ -34,8 +34,7 @@ class RapydServiceProvider extends ServiceProvider
             require __DIR__.'/routes.php';
         }
         
-        if (file_exists($file = app_path('/Http/rapyd.php')))
-        {
+        if (file_exists($file = app_path('/Http/rapyd.php'))) {
             include $file;
         } else {
             include __DIR__ . '/routes.php';
@@ -61,19 +60,17 @@ class RapydServiceProvider extends ServiceProvider
 
             $loader->alias('Input', 'Illuminate\Support\Facades\Input');
             
-            $loader->alias('Rapyd'     , 'Zofe\Rapyd\Facades\Rapyd'     );
+            $loader->alias('Rapyd', 'Zofe\Rapyd\Facades\Rapyd');
             
             //deprecated .. and more facade are really needed ?
-            $loader->alias('DataSet'   , 'Zofe\Rapyd\Facades\DataSet'   );
-            $loader->alias('DataGrid'  , 'Zofe\Rapyd\Facades\DataGrid'  );
-            $loader->alias('DataForm'  , 'Zofe\Rapyd\Facades\DataForm'  );
-            $loader->alias('DataEdit'  , 'Zofe\Rapyd\Facades\DataEdit'  );
+            $loader->alias('DataSet', 'Zofe\Rapyd\Facades\DataSet');
+            $loader->alias('DataGrid', 'Zofe\Rapyd\Facades\DataGrid');
+            $loader->alias('DataForm', 'Zofe\Rapyd\Facades\DataForm');
+            $loader->alias('DataEdit', 'Zofe\Rapyd\Facades\DataEdit');
             $loader->alias('DataFilter', 'Zofe\Rapyd\Facades\DataFilter');
-            $loader->alias('DataEmbed' , 'Zofe\Rapyd\Facades\DataEmbed');
-            $loader->alias('DataTree' , 'Zofe\Rapyd\Facades\DataTree');
+            $loader->alias('DataEmbed', 'Zofe\Rapyd\Facades\DataEmbed');
+            $loader->alias('DataTree', 'Zofe\Rapyd\Facades\DataTree');
             $loader->alias('Documenter', 'Zofe\Rapyd\Facades\Documenter');
-
-
         });
     }
 
@@ -86,5 +83,4 @@ class RapydServiceProvider extends ServiceProvider
     {
         return [];
     }
-    
 }

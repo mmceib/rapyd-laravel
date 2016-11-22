@@ -9,6 +9,8 @@ class DataSet extends Facade
    *
    * @return string
    */
-  protected static function getFacadeAccessor() { return 'Zofe\Rapyd\DataSet'; }
-
+    protected static function getFacadeAccessor()
+    {
+        return 'Zofe\Rapyd\DataSet';
+    }
 }

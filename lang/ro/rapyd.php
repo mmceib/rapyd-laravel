@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => 'Salvează',
     'undo'    => 'Anulează',
     'show'    => 'Afisează',
@@ -20,4 +20,4 @@ return array(
     'err_dup_pk' => 'Eroare! Cheie primară duplicat',
     'conf_delete'=> 'Sunteți sigur că doriți să stergeți această înregistrare?',
 
-);
+];

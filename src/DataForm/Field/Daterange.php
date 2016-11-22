@@ -43,10 +43,11 @@ class Daterange extends Date
         $output = "";
 
         unset($this->attributes['type']);
-        if (parent::build() === false) return;
+        if (parent::build() === false) {
+            return;
+        }
         
         switch ($this->status) {
-
             case "show":
                 if (!isset($this->value)) {
                     $value = $this->layout['null_label'];
@@ -59,8 +60,6 @@ class Daterange extends Date
 
             case "create":
             case "modify":
-
-
                 Rapyd::css('datepicker/datepicker3.css');
                 Rapyd::js('datepicker/bootstrap-datepicker.js');
                 if ($this->language != "en") {
@@ -106,5 +105,4 @@ class Daterange extends Date
         }
         $this->output = $output;
     }
-
 }

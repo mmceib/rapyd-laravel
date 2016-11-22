@@ -24,7 +24,6 @@ class Number extends Field
         switch ($this->status) {
             case "disabled":
             case "show":
-
                 if ($this->type == 'hidden' || $this->value == "") {
                     $output = "";
                 } elseif ((!isset($this->value))) {
@@ -48,5 +47,4 @@ class Number extends Field
         }
         $this->output = "\n" . $output . "\n" . $this->extra_output . "\n";
     }
-
 }

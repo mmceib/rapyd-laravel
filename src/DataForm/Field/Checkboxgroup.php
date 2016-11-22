@@ -26,12 +26,11 @@ class Checkboxgroup extends Field
 
         if (is_array($this->value)) {
             $this->values = $this->value;
-        }
-        else {
+        } else {
             $this->values = explode($this->serialization_sep, $this->value);
         }
 
-        $description_arr = array();
+        $description_arr = [];
         foreach ($this->options as $value => $description) {
             if (in_array($value, $this->values)) {
                 $description_arr[] = $description;
@@ -48,7 +47,9 @@ class Checkboxgroup extends Field
             $this->style = "margin:0 2px 0 0; vertical-align: middle";
         }
         unset($this->attributes['id']);
-        if (parent::build() === false) return;
+        if (parent::build() === false) {
+            return;
+        }
 
         switch ($this->status) {
             case "disabled":
@@ -63,10 +64,8 @@ class Checkboxgroup extends Field
 
             case "create":
             case "modify":
-
                 //dd($this->options, $this->values);
                 foreach ($this->options as $val => $label) {
-
                     $this->checked = in_array($val, $this->values);
 
                     //echo ((int)$this->checked)."<br />";
@@ -84,5 +83,4 @@ class Checkboxgroup extends Field
         }
         $this->output = $output;
     }
-
 }

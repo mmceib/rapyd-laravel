@@ -5,8 +5,9 @@ class HTML
 
     public static function buildAttributes(array $attributes = null)
     {
-        if (empty($attributes))
+        if (empty($attributes)) {
             return '';
+        }
 
         $compiled = '';
         foreach ($attributes as $key => $val) {
@@ -26,7 +27,7 @@ class HTML
         if (is_array($string)) {
             return $string;
         }
-        $string = str_replace(array("&amp;", "&lt;", "&gt;"), array("&amp;amp;", "&amp;lt;", "&amp;gt;",), $string);
+        $string = str_replace(["&amp;", "&lt;", "&gt;"], ["&amp;amp;", "&amp;lt;", "&amp;gt;",], $string);
         // fix &entitiy\n;
 
         $string = preg_replace('#(&\#*\w+)[\x00-\x20]+;#u', "$1;", $string);
@@ -55,5 +56,4 @@ class HTML
 
         return $string;
     }
-
 }

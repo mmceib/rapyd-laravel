@@ -13,16 +13,16 @@ class Widget
     public $output            = "";
     public $built             = false;
     public $url;
-    public $attributes        = array();
+    public $attributes        = [];
 
     public $process_status    = "idle";
     public $status            = "idle";
     public $action            = "idle";
 
     // TR: Top right - BL: Bottom left - BR: Bottom right
-    public $button_container  = array( "TR"=>array(), "BL"=>array(), "BR"=>array() );
+    public $button_container  = [ "TR"=>[], "BL"=>[], "BR"=>[] ];
     public $message           = "";
-    public $links             = array();
+    public $links             = [];
 
     public static $identifier = 0;
 
@@ -55,9 +55,9 @@ class Widget
      *
      * @return $this
      */
-    public function button($name, $position="BL", $attributes=array())
+    public function button($name, $position = "BL", $attributes = [])
     {
-        $attributes = array_merge(array("class"=>"btn btn-default"), $attributes);
+        $attributes = array_merge(["class"=>"btn btn-default"], $attributes);
 
         $this->button_container[$position][] = Form::button($name, $attributes);
 
@@ -72,16 +72,16 @@ class Widget
      *
      * @return $this
      */
-    public function link($url, $name, $position="BL", $attributes=array())
+    public function link($url, $name, $position = "BL", $attributes = [])
     {
-        $base = str_replace(Request::path(),'',strtok(Request::fullUrl(),'?'));
-        $match_url = str_replace($base, '/', strtok($url,'?'));
+        $base = str_replace(Request::path(), '', strtok(Request::fullUrl(), '?'));
+        $match_url = str_replace($base, '/', strtok($url, '?'));
         if (Request::path()!= $match_url) {
             $url = Persistence::get($match_url, parse_url($url, PHP_URL_QUERY));
         }
 
 
-        $attributes = array_merge(array("class"=>"btn btn-default"), $attributes);
+        $attributes = array_merge(["class"=>"btn btn-default"], $attributes);
         $this->button_container[$position][] =  HTML::link($url, $name, $attributes);
         $this->links[] = $url;
 
@@ -97,7 +97,7 @@ class Widget
      *
      * @return $this
      */
-    public function linkRoute($route, $name, $parameters=array(), $position="BL", $attributes=array())
+    public function linkRoute($route, $name, $parameters = [], $position = "BL", $attributes = [])
     {
         return $this->link(route($route, $parameters), $name, $position, $attributes);
     }
@@ -111,7 +111,7 @@ class Widget
      *
      * @return $this
      */
-    public function linkAction($action, $name, $parameters=array(), $position="BL", $attributes=array())
+    public function linkAction($action, $name, $parameters = [], $position = "BL", $attributes = [])
     {
         return $this->link(action($action, $parameters), $name, $position, $attributes);
     }
@@ -179,8 +179,12 @@ class Widget
      */
     public function attr($attribute, $value = null)
     {
-        if (is_array($attribute)) return $this->attributes($attribute);
-        if ($value) return $this->attributes(array($attribute => $value));
+        if (is_array($attribute)) {
+            return $this->attributes($attribute);
+        }
+        if ($value) {
+            return $this->attributes([$attribute => $value]);
+        }
     }
 
     /**
@@ -189,11 +193,13 @@ class Widget
      */
     public function buildAttributes()
     {
-        if (is_string($this->attributes))
+        if (is_string($this->attributes)) {
             return $this->attributes;
+        }
 
-        if (count($this->attributes)<1)
+        if (count($this->attributes)<1) {
             return "";
+        }
 
         $compiled = '';
         foreach ($this->attributes as $key => $val) {
@@ -212,12 +218,11 @@ class Widget
      * @param  array  $attributes
      * @return $this
      */
-    public function formButton($url, $method, $name, $position="BL", $attributes=array())
+    public function formButton($url, $method, $name, $position = "BL", $attributes = [])
     {
-        $attributes = array_merge(array("class"=>"btn btn-default"), $attributes);
-        $this->button_container[$position][] = Form::open(array('url' => $url, 'method' => $method)).Form::submit($name, $attributes).Form::close();
+        $attributes = array_merge(["class"=>"btn btn-default"], $attributes);
+        $this->button_container[$position][] = Form::open(['url' => $url, 'method' => $method]).Form::submit($name, $attributes).Form::close();
 
         return $this;
     }
-
 }

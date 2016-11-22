@@ -9,6 +9,8 @@ class DataEdit extends Facade
    *
    * @return string
    */
-  protected static function getFacadeAccessor() { return 'Zofe\Rapyd\DataEdit\DataEdit'; }
-
+    protected static function getFacadeAccessor()
+    {
+        return 'Zofe\Rapyd\DataEdit\DataEdit';
+    }
 }

@@ -28,7 +28,6 @@ class Numberrange extends Number
         switch ($this->status) {
             case "disabled":
             case "show":
-
                 if ($this->type == 'hidden' || $this->value == "") {
                     $output = "";
                 } elseif ((!isset($this->value))) {
@@ -41,7 +40,6 @@ class Numberrange extends Number
 
             case "create":
             case "modify":
-
                 $lower = Form::number($this->name . '[]', @$this->values[0], $this->attributes);
                 $upper = Form::number($this->name . '[]', @$this->values[1], $this->attributes);
 
@@ -66,5 +64,4 @@ class Numberrange extends Number
         }
         $this->output = "\n" . $output . "\n" . $this->extra_output . "\n";
     }
-
 }

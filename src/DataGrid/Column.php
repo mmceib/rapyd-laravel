@@ -9,12 +9,12 @@ class Column
     public $label = "";
     public $orderby = null;
     public $orderby_field = null;
-    public $attributes = array();
-    public $filters = array();
+    public $attributes = [];
+    public $filters = [];
 
     public $key = 'id';
     public $uri = null;
-    public $actions = array();
+    public $actions = [];
 
     public $value = null;
     public $cell_callable;
@@ -32,7 +32,7 @@ class Column
         $filter = strstr($name, '|');
         if ($filter) {
             $this->name = strstr($name, '|', true);
-            $this->filter(trim($filter,'|'));
+            $this->filter(trim($filter, '|'));
         }
 
         $this->label($label);
@@ -113,5 +113,4 @@ class Column
     {
         return HTML::buildAttributes($this->attributes);
     }
-
 }

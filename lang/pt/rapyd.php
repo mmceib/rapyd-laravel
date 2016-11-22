@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => 'Salvar',
     'undo'    => 'Desfazer',
     'show'    => 'Visualizar',
@@ -21,4 +21,4 @@ return array(
     'no_records' => 'Não há registro para exibir.',
     'conf_delete'=> 'Você tem certeza que deseja eliminar o registro?',
 
-);
+];

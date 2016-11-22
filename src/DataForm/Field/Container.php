@@ -35,7 +35,9 @@ class Container extends Field
     {
         $output = "";
         
-        if (parent::build() === false) return;
+        if (parent::build() === false) {
+            return;
+        }
 
         switch ($this->status) {
             case "disabled":
@@ -48,7 +50,8 @@ class Container extends Field
                 $output = "";
                 break;
 
-            default:;
+            default:
+                ;
         }
         $this->output = "\n".$output."\n". $this->extra_output."\n";
     }

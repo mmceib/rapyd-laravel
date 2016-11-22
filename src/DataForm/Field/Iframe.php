@@ -27,9 +27,14 @@ class Iframe extends Field
         return  sprintf(
             '<IFRAME src="%s" width="100%%" height="%s" scrolling="%s" frameborder="%s" id="%s" onLoad="iframeAutoResize(\'%s\');">
             iframe not supported
-            </IFRAME>', $this->src, $this->height, $this->scrolling, $this->frameborder, $this->name, $this->name);
-        
-        
+            </IFRAME>',
+            $this->src,
+            $this->height,
+            $this->scrolling,
+            $this->frameborder,
+            $this->name,
+            $this->name
+        );
     }
     
     
@@ -37,7 +42,9 @@ class Iframe extends Field
     {
         $output = "";
         
-        if (parent::build() === false) return;
+        if (parent::build() === false) {
+            return;
+        }
 
         switch ($this->status) {
             case "disabled":
@@ -69,7 +76,8 @@ class Iframe extends Field
                 $output = "";
                 break;
 
-            default:;
+            default:
+                ;
         }
         $this->output = "\n".$output."\n". $this->extra_output."\n";
     }

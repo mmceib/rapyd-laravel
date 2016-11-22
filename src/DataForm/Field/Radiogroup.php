@@ -29,8 +29,9 @@ class Radiogroup extends Field
     public function build()
     {
         $output = "";
-        if (parent::build() === false)
+        if (parent::build() === false) {
             return;
+        }
 
         switch ($this->status) {
             case "disabled":
@@ -45,7 +46,6 @@ class Radiogroup extends Field
 
             case "create":
             case "modify":
-
                 foreach ($this->options as $val => $label) {
                     $this->checked = (!is_null($this->value) and ($this->value == $val));
                     $output .= Form::radio($this->name, $val, $this->checked).' '. $label. $this->separator;
@@ -61,5 +61,4 @@ class Radiogroup extends Field
         }
         $this->output = $output;
     }
-
 }

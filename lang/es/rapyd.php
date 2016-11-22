@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => 'Guardar',
     'undo'    => 'Deshacer',
     'show'    => 'Mostrar',
@@ -20,4 +20,4 @@ return array(
     'err_dup_pk' => 'Error, llave primaria duplicada',
     'conf_delete'=> '¿Realmente desea eliminar este registro?',
 
-);
+];

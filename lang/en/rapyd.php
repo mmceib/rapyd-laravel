@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'save'    => 'Save',
     'undo'    => 'Undo',
     'show'    => 'Show',
@@ -21,4 +21,4 @@ return array(
     'no_records' => 'There are no records to show.',
     'conf_delete'=> 'Do you want to eliminate the record?',
 
-);
+];

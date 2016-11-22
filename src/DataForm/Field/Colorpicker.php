@@ -14,10 +14,11 @@ class Colorpicker extends Field
     {
         $output = "";
 
-        if (parent::build() === false) return;
+        if (parent::build() === false) {
+            return;
+        }
 
         switch ($this->status) {
-
             case "show":
                 $output = $this->value;
                 $output = "<div class='help-block' style='background-color:".$output."'>&nbsp;</div>";
@@ -27,7 +28,7 @@ class Colorpicker extends Field
             case "modify":
                 Rapyd::css('colorpicker/css/bootstrap-colorpicker.min.css');
                 Rapyd::js('colorpicker/js/bootstrap-colorpicker.min.js');
-                $output  = Form::text($this->name, $this->value,  $this->attributes);
+                $output  = Form::text($this->name, $this->value, $this->attributes);
                 $output .= Rapyd::script("
                         $('#".$this->name."').colorpicker({
                             format: 'hex'
@@ -37,9 +38,9 @@ class Colorpicker extends Field
             case "hidden":
                 $output = Form::hidden($this->name, $this->value);
                 break;
-            default:;
+            default:
+                ;
         }
         $this->output = $output;
     }
-
 }

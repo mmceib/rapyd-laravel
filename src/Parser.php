@@ -13,7 +13,7 @@ class Parser extends BladeCompiler
      * @param  array  $args  variables to be extracted
      * @return string the compiled output
      */
-    public function compileString($value, array $args = array())
+    public function compileString($value, array $args = [])
     {
         $generated = parent::compileString($value);
 
@@ -21,8 +21,7 @@ class Parser extends BladeCompiler
 
         try {
             eval('?>'.$generated.'<?php ');
-        }
-        // If we caught an exception, just return $value unparsed for now, or empty string
+        } // If we caught an exception, just return $value unparsed for now, or empty string
         catch (\Exception $e) {
             ob_get_clean(); //throw $e;
 
@@ -33,5 +32,4 @@ class Parser extends BladeCompiler
 
         return $content;
     }
-
 }
