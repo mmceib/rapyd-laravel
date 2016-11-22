@@ -146,8 +146,9 @@ class DataForm extends Widget
      */
     public function remove($fieldname)
     {
-        if (isset($this->fields[$fieldname]))
+        if (isset($this->fields[$fieldname])) {
             unset($this->fields[$fieldname]);
+        }
 
         return $this;
     }
@@ -165,7 +166,7 @@ class DataForm extends Widget
             }
         }
         foreach ($this->button_container as $container => $buttons) {
-            foreach ($buttons as $key=>$button) {
+            foreach ($buttons as $key => $button) {
                 if (strpos($button, 'type="'.$type.'"')!==false) {
                     $this->button_container[$container][$key] = "";
                 }
@@ -199,7 +200,9 @@ class DataForm extends Widget
      */
     public function reset($name = "", $position = "BL", $options = array())
     {
-        if ($name == "") $name = trans('rapyd::rapyd.reset');
+        if ($name == "") {
+            $name = trans('rapyd::rapyd.reset');
+        }
         $this->link($this->url->current(true), $name, $position, $options);
 
         return $this;
@@ -274,7 +277,7 @@ class DataForm extends Widget
      */
     public function errors($messages = [])
     {
-        $this->validator_messages = $messages; 
+        $this->validator_messages = $messages;
     }
     
     /**
@@ -296,7 +299,6 @@ class DataForm extends Widget
             return !$this->validator->fails();
         }
         if (isset($rules)) {
-
             $this->validator = Validator::make(Input::all(), $rules, $this->validator_messages, $attributes);
 
             return !$this->validator->fails();
@@ -330,8 +332,9 @@ class DataForm extends Widget
      */
     public function on($process_status = "false")
     {
-        if (is_array($process_status))
+        if (is_array($process_status)) {
             return (bool) in_array($this->process_status, $process_status);
+        }
         return ($this->process_status == $process_status);
     }
 
@@ -349,7 +352,6 @@ class DataForm extends Widget
      */
     protected function buildButtons()
     {
-
     }
 
     /**
@@ -465,7 +467,6 @@ class DataForm extends Widget
             $this->open = '<div class="'.(isset($form_attr['class']) ? $form_attr['class'] : 'form' ).'">';
             $this->close = '</div>';
         } else {
-
             $this->open = Form::open($form_attr);
             $this->close = Form::hidden('save', 1) . Form::close();
 
@@ -475,7 +476,7 @@ class DataForm extends Widget
         }
         if (isset($this->validator)) {
             $this->errors = $this->validator->messages();
-            $this->error .=  implode('<br />',$this->errors->all());
+            $this->error .=  implode('<br />', $this->errors->all());
         }
     }
 
@@ -496,8 +497,12 @@ class DataForm extends Widget
         if (isset($this->attributes['class']) and strpos($this->attributes['class'], 'with-placeholders') !== false) {
             $this->has_placeholders = true;
         }
-        if ($this->output != '') return;
-        if ($view != '') $this->view = $view;
+        if ($this->output != '') {
+            return;
+        }
+        if ($view != '') {
+            $this->view = $view;
+        }
 
         $this->process();
 
@@ -546,19 +551,17 @@ class DataForm extends Widget
     public function __toString()
     {
         if ($this->output == "") {
-
             //to avoid the error "toString() must not throw an exception"
             //http://stackoverflow.com/questions/2429642/why-its-impossible-to-throw-exception-from-tostring/27307132#27307132
             try {
                 $this->getForm();
-            }
-            catch (\Exception $e) {
-                $previousHandler = set_exception_handler(function (){ });
+            } catch (\Exception $e) {
+                $previousHandler = set_exception_handler(function () {
+                });
                 restore_error_handler();
                 call_user_func($previousHandler, $e);
                 die;
             }
-
         }
 
         return $this->output;
@@ -636,22 +639,23 @@ class DataForm extends Widget
      * @param bool $insert
      * @param bool $update
      */
-    public function set($field, $value = null , $insert = true, $update = true)
+    public function set($field, $value = null, $insert = true, $update = true)
     {
 
         if (is_array($field)) {
-            foreach ($field as $key=>$val) {
+            foreach ($field as $key => $val) {
                 $this->set($key, $val, $insert, $update);
             }
         }
 
         $this->add($field, '', 'auto');
-        if ($insert)
+        if ($insert) {
             $this->field($field)->insertValue($value);
+        }
 
-        if ($update)
+        if ($update) {
             $this->field($field)->updateValue($value);
-
+        }
     }
 
     public function compact()

@@ -60,14 +60,12 @@ class DataFilter extends DataForm
             $this->action = "search";
 
             Persistence::save();
-        }
-        ///// reset /////
+        } ///// reset /////
         elseif ($this->url->value("reset")) {
             $this->action = "reset";
 
             Persistence::clear();
         } else {
-
             Persistence::clear();
         }
     }
@@ -79,10 +77,8 @@ class DataFilter extends DataForm
         //database save
         switch ($this->action) {
             case "search":
-
                 // prepare the WHERE clause
                 foreach ($this->fields as $field) {
-
                     $field->getValue();
                     $field->getNewValue();
                     $value = $field->new_value;
@@ -91,21 +87,16 @@ class DataFilter extends DataForm
                     $query_scope = $field->query_scope;
                     $query_scope_params = $field->query_scope_params;
                     if ($query_scope) {
-
                         if (is_a($query_scope, '\Closure')) {
-
                             array_unshift($query_scope_params, $value);
                             array_unshift($query_scope_params, $this->query);
                             $this->query = call_user_func_array($query_scope, $query_scope_params);
-
                         } elseif (isset($this->model) && method_exists($this->model, "scope".$query_scope)) {
-                            
                             $query_scope = "scope".$query_scope;
                             array_unshift($query_scope_params, $value);
                             array_unshift($query_scope_params, $this->query);
                             $this->query = call_user_func_array([$this->model, $query_scope], $query_scope_params);
-                            
-                        } 
+                        }
                         continue;
                     }
 
@@ -115,25 +106,22 @@ class DataFilter extends DataForm
                     if (isset($this->model) && $field->relation != null) {
                         $rel_type = get_class($field->relation);
 
-                        if (
-                            is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\HasOne')
+                        if (is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\HasOne')
                             || is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\HasMany')
                             || is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\BelongsTo')
                             || is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\BelongsToMany')
-                        ){
-                            if (
-                                is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\BelongsTo') and
+                        ) {
+                            if (is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\BelongsTo') and
                                 in_array($field->type, array('select', 'radiogroup', 'autocomplete'))
-                            ){
+                            ) {
                                     $deep_where = false;
                             } else {
                                 $deep_where = true;
                             }
-
                         }
                     }
                     
-                    if ($value != "" or (is_array($value)  and count($value)) ) {
+                    if ($value != "" or (is_array($value)  and count($value))) {
                         if (strpos($field->name, "_copy") > 0) {
                             $name = substr($field->db_name, 0, strpos($field->db_name, "_copy"));
                         } else {
@@ -144,27 +132,26 @@ class DataFilter extends DataForm
                        
                         if ($deep_where) {
                             //exception for multiple value fields on BelongsToMany
-                            if (
-                                (is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\BelongsToMany')
+                            if ((is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\BelongsToMany')
                                 || is_a($field->relation, 'Illuminate\Database\Eloquent\Relations\BelongsTo')
                                 ) and
                                 in_array($field->type, array('tags','checks','multiselect'))
-                            ){
+                            ) {
                                   $values = explode($field->serialization_sep, $value);
 
-                                  if ($field->clause == 'wherein') {
-                                      $this->query = $this->query->whereHas($field->rel_name, function ($q) use ($field, $values) {
-                                          $q->whereIn($field->rel_fq_key, $values);
-                                      });
-                                  }
+                                if ($field->clause == 'wherein') {
+                                    $this->query = $this->query->whereHas($field->rel_name, function ($q) use ($field, $values) {
+                                        $q->whereIn($field->rel_fq_key, $values);
+                                    });
+                                }
 
-                                  if ($field->clause == 'where') {
-                                      foreach ($values as $v) {
-                                          $this->query = $this->query->whereHas($field->rel_name, function ($q) use ($field, $v) {
-                                              $q->where($field->rel_fq_key,'=', $v);
-                                          });
-                                      }
-                                  }
+                                if ($field->clause == 'where') {
+                                    foreach ($values as $v) {
+                                        $this->query = $this->query->whereHas($field->rel_name, function ($q) use ($field, $v) {
+                                            $q->where($field->rel_fq_key, '=', $v);
+                                        });
+                                    }
+                                }
                                 continue;
                             }
 
@@ -198,7 +185,6 @@ class DataFilter extends DataForm
                                         } elseif ($values[0] == '' and $values[1] != '') {
                                             $q->where($field->rel_field, "<=", $values[1]);
                                         } elseif ($values[0] != '' and $values[1] != '') {
-
                                             //we avoid "whereBetween" because a bug in laravel 4.1
                                             $q->where(
                                                 function ($query) use ($field, $values) {
@@ -207,7 +193,6 @@ class DataFilter extends DataForm
                                                 }
                                             );
                                         }
-
                                     });
                                     break;
                                 case "orwherebetween":
@@ -219,7 +204,6 @@ class DataFilter extends DataForm
                                         } elseif ($values[0] == '' and $values[1] != '') {
                                             $q->orWhere($field->rel_field, "<=", $values[1]);
                                         } elseif ($values[0] != '' and $values[1] != '') {
-
                                             //we avoid "whereBetween" because a bug in laravel 4.1
                                             $q->orWhere(
                                                 function ($query) use ($field, $values) {
@@ -228,14 +212,12 @@ class DataFilter extends DataForm
                                                 }
                                             );
                                         }
-
                                     });
                                     break;
                             }
 
                         //not deep, where is on main entity
                         } else {
-
                             switch ($field->clause) {
                                 case "like":
                                     $this->query = $this->query->where($name, 'LIKE', '%' . $value . '%');
@@ -250,18 +232,16 @@ class DataFilter extends DataForm
                                     $this->query = $this->query->orWhere($name, $field->operator, $value);
                                     break;
                                 case "wherein":
-                                    $this->query = $this->query->whereIn($name,  explode($field->serialization_sep, $value));
+                                    $this->query = $this->query->whereIn($name, explode($field->serialization_sep, $value));
                                     break;
                                 case "wherebetween":
                                     $values = explode($field->serialization_sep, $value);
                                     if (count($values)==2) {
-
                                         if ($values[0] != '' and $values[1] == '') {
                                             $this->query = $this->query->where($name, ">=", $values[0]);
                                         } elseif ($values[0] == '' and $values[1] != '') {
                                             $this->query = $this->query->where($name, "<=", $values[1]);
                                         } elseif ($values[0] != '' and $values[1] != '') {
-
                                             //we avoid "whereBetween" because a bug in laravel 4.1
                                             $this->query =  $this->query->where(
                                                 function ($query) use ($name, $values) {
@@ -269,9 +249,7 @@ class DataFilter extends DataForm
                                                                   ->where($name, "<=", $values[1]);
                                                 }
                                             );
-
                                         }
-
                                     }
 
                                     break;
@@ -291,13 +269,11 @@ class DataFilter extends DataForm
                                                 }
                                             );
                                         }
-
                                     }
 
                                     break;
                             }
                         }
-
                     }
                 }
                 // dd($this->query->toSql());
@@ -311,5 +287,4 @@ class DataFilter extends DataForm
                 return false;
         }
     }
-
 }

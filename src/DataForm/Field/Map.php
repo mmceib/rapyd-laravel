@@ -29,11 +29,10 @@ class Map extends Field
     {
         $process = (\Input::get('search') || \Input::get('save')) ? true : false;
         
-        if ($this->request_refill == true && $process && \Input::exists($this->lat) ) {
+        if ($this->request_refill == true && $process && \Input::exists($this->lat)) {
             $this->value['lat'] = \Input::get($this->lat);
             $this->value['lon'] = \Input::get($this->lon);
             $this->is_refill = true;
-            
         } elseif (($this->status == "create") && ($this->insert_value != null)) {
             $this->value = $this->insert_value;
         } elseif (($this->status == "modify") && ($this->update_value != null)) {
@@ -51,7 +50,6 @@ class Map extends Field
         if ($process && \Input::exists($this->lat)) {
             $this->new_value['lat'] = \Input::get($this->lat);
             $this->new_value['lon'] = \Input::get($this->lon);
-
         } elseif (($this->action == "insert") && ($this->insert_value != null)) {
             $this->edited = true;
             $this->new_value = $this->insert_value;
@@ -63,8 +61,7 @@ class Map extends Field
     
     public function autoUpdate($save = false)
     {
-        if (isset($this->model))
-        {
+        if (isset($this->model)) {
             $this->getValue();
             $this->getNewValue();
             $this->model->setAttribute($this->lat, $this->new_value['lat']);
@@ -80,20 +77,19 @@ class Map extends Field
     {
         $output = "";
         $this->attributes["class"] = "form-control";
-        if (parent::build() === false)
+        if (parent::build() === false) {
             return;
+        }
 
         switch ($this->status) {
             case "disabled":
             case "show":
-
                 if ($this->type == 'hidden' || $this->value == "") {
                     $output = "";
                 } elseif ((!isset($this->value))) {
                     $output = $this->layout['null_label'];
                 } else {
                     $output = "<img border=\"0\" src=\"//maps.googleapis.com/maps/api/staticmap?center={$this->value['lat']},{$this->value['lon']}&zoom={$this->zoom}&size=500x500\">";
-                   
                 }
                 $output = "<div class='help-block'>" . $output . "</div>";
                 break;
@@ -105,7 +101,7 @@ class Map extends Field
                 $output .= '<div id="map_'.$this->name.'" style="width:500px; height:500px"></div>';
                 $output .= '<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>';
                 
-            \Rapyd::script("
+                \Rapyd::script("
         
             function initialize()
             {
@@ -151,9 +147,9 @@ class Map extends Field
                 $output = '';//Form::hidden($this->db_name, $this->value);
                 break;
 
-            default:;
+            default:
+                ;
         }
         $this->output = "\n" . $output . "\n" . $this->extra_output . "\n";
     }
-
 }

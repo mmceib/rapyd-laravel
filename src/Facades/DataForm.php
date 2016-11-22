@@ -9,6 +9,8 @@ class DataForm extends Facade
    *
    * @return string
    */
-  protected static function getFacadeAccessor() { return 'Zofe\Rapyd\DataForm\DataForm'; }
-
+    protected static function getFacadeAccessor()
+    {
+        return 'Zofe\Rapyd\DataForm\DataForm';
+    }
 }

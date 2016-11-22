@@ -40,8 +40,10 @@ class Date extends Field
     protected function isoDateToHuman($isodate)
     {
         $isodate = str_replace(" 00:00:00", "", $isodate);
-        $datetime = \DateTime::createFromFormat( 'Y-m-d', $isodate);
-        if (!$datetime || $isodate == '0000-00-00') return '';
+        $datetime = \DateTime::createFromFormat('Y-m-d', $isodate);
+        if (!$datetime || $isodate == '0000-00-00') {
+            return '';
+        }
 
         $isodate = $datetime->format($this->format);
         return $isodate;
@@ -52,8 +54,10 @@ class Date extends Field
      */
     protected function humanDateToIso($humandate)
     {
-        $datetime = \DateTime::createFromFormat( $this->format, $humandate);
-        if (!$datetime) return null;
+        $datetime = \DateTime::createFromFormat($this->format, $humandate);
+        if (!$datetime) {
+            return null;
+        }
 
         $humandate = $datetime->format('Y-m-d');
         return $humandate;
@@ -77,9 +81,10 @@ class Date extends Field
     protected function formatToDate()
     {
         $format = $this->format;
-        $format = str_replace(array('d',  'm',  'Y'),
-                              array('dd', 'mm', 'yyyy'),
-                             $format
+        $format = str_replace(
+            array('d',  'm',  'Y'),
+            array('dd', 'mm', 'yyyy'),
+            $format
         );
 
         return $format;
@@ -98,10 +103,11 @@ class Date extends Field
         $output = "";
 
         unset($this->attributes['type']);
-        if (parent::build() === false) return;
+        if (parent::build() === false) {
+            return;
+        }
 
         switch ($this->status) {
-
             case "show":
                 if (!isset($this->value)) {
                     $value = $this->layout['null_label'];
@@ -126,7 +132,7 @@ class Date extends Field
                     Rapyd::js('datepicker/locales/bootstrap-datepicker.'.$this->language.'.js');
                 }
 
-                $output  = Form::text($this->name, $this->value,  $this->attributes);
+                $output  = Form::text($this->name, $this->value, $this->attributes);
                 Rapyd::script("
                         $('#".$this->name."').datepicker({
                             format: '{$this->formatToDate()}',
@@ -139,9 +145,9 @@ class Date extends Field
             case "hidden":
                 $output = Form::hidden($this->db_name, $this->value);
                 break;
-            default:;
+            default:
+                ;
         }
         $this->output = $output;
     }
-
 }

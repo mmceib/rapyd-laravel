@@ -36,7 +36,7 @@ class Tags extends Field
     {
         $this->is_local = true;
         parent::options($options);
-        foreach ($options as $key=>$value) {
+        foreach ($options as $key => $value) {
             $row = new \stdClass();
             $row->key = $key;
             $row->value = $value;
@@ -44,14 +44,13 @@ class Tags extends Field
         }
 
         return $this;
-
     }
 
     public function getValue()
     {
 
         if (!$this->is_local && !$this->record_label && $this->rel_field != "") {
-             $this->remote($this->rel_field, trim(strstr($this->rel_key,'.'),'.'));
+             $this->remote($this->rel_field, trim(strstr($this->rel_key, '.'), '.'));
         }
         parent::getValue();
 
@@ -71,7 +70,6 @@ class Tags extends Field
             }
             $this->description = implode($this->separator, $description_arr);
         } elseif ($this->relation != null) {
-
             if ($this->is_refill) {
                 $values = explode($this->serialization_sep, $this->value);
                 $entity = get_class($this->relation->getRelated());
@@ -94,13 +92,12 @@ class Tags extends Field
                 $this->description = implode($this->separator, $description_arr);
             }
         }
-
     }
 
     public function remote($record_label = null, $record_id = null, $remote = null)
     {
         $this->record_label = ($record_label!="") ? $record_label : $this->db_name ;
-        $this->record_id =  ($record_id!="") ? $record_id :  preg_replace('#([a-z0-9_-]+\.)?(.*)#i','$2',$this->rel_key);
+        $this->record_id =  ($record_id!="") ? $record_id :  preg_replace('#([a-z0-9_-]+\.)?(.*)#i', '$2', $this->rel_key);
         if ($remote!="") {
             $this->remote = $remote;
             if (is_array($record_label)) {
@@ -110,7 +107,6 @@ class Tags extends Field
                 $this->record_label = $this->rel_field;
             }
         } else {
-
             $data["entity"] = get_class($this->relation->getRelated());
             $data["field"]  = $record_label;
             if (is_array($record_label)) {
@@ -127,7 +123,7 @@ class Tags extends Field
 
     public function search($record_label, $record_id = null)
     {
-        $record_id = ($record_id!="") ? $record_id :  preg_replace('#([a-z0-9_-]+\.)?(.*)#i','$2',$this->rel_key);
+        $record_id = ($record_id!="") ? $record_id :  preg_replace('#([a-z0-9_-]+\.)?(.*)#i', '$2', $this->rel_key);
         $this->remote($record_label, $record_id);
 
         return $this;
@@ -146,12 +142,14 @@ class Tags extends Field
 
         unset($this->attributes['type']);
 
-        if (parent::build() === false) return;
+        if (parent::build() === false) {
+            return;
+        }
 
         switch ($this->status) {
             case "disabled":
             case "show":
-                if ( (!isset($this->value)) ) {
+                if ((!isset($this->value))) {
                     $output = $this->layout['null_label'];
                 } else {
                     $output = $this->description;
@@ -161,7 +159,6 @@ class Tags extends Field
 
             case "create":
             case "modify":
-
                 $output  =  Form::text($this->name, '', array_merge($this->attributes, array('id'=>"".$this->name)))."\n";
                 if ($this->remote) {
                     $script = <<<acp
@@ -194,9 +191,7 @@ class Tags extends Field
 acp;
 
                     Rapyd::script($script);
-
                 } elseif (count($this->options)) {
-
                     $options = json_encode($this->local_options);
 
                     //options
@@ -245,9 +240,9 @@ acp;
                 $output = Form::hidden($this->db_name, $this->value);
                 break;
 
-            default:;
+            default:
+                ;
         }
         $this->output = "\n".$output."\n". $this->extra_output."\n";
     }
-
 }

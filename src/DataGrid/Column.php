@@ -32,7 +32,7 @@ class Column
         $filter = strstr($name, '|');
         if ($filter) {
             $this->name = strstr($name, '|', true);
-            $this->filter(trim($filter,'|'));
+            $this->filter(trim($filter, '|'));
         }
 
         $this->label($label);
@@ -113,5 +113,4 @@ class Column
     {
         return HTML::buildAttributes($this->attributes);
     }
-
 }

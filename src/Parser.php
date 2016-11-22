@@ -21,8 +21,7 @@ class Parser extends BladeCompiler
 
         try {
             eval('?>'.$generated.'<?php ');
-        }
-        // If we caught an exception, just return $value unparsed for now, or empty string
+        } // If we caught an exception, just return $value unparsed for now, or empty string
         catch (\Exception $e) {
             ob_get_clean(); //throw $e;
 
@@ -33,5 +32,4 @@ class Parser extends BladeCompiler
 
         return $content;
     }
-
 }

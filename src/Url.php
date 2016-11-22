@@ -64,8 +64,8 @@ class Url
         $qs_array = array();
 
         if (strpos($url, '?') !== false) {
-            $qs  = substr( $url, strpos($url, '?') + 1 );
-            $url = substr( $url, 0, strpos($url, '?' )) ;
+            $qs  = substr($url, strpos($url, '?') + 1);
+            $url = substr($url, 0, strpos($url, '?')) ;
 
             parse_str($qs, $qs_array);
         }
@@ -88,8 +88,8 @@ class Url
             return $this;
         }
 
-        $qs  = substr( $url, strpos($url, '?') + 1 );
-        $url = substr( $url, 0, strpos($url, '?') ) ;
+        $qs  = substr($url, strpos($url, '?') + 1);
+        $url = substr($url, 0, strpos($url, '?')) ;
 
         parse_str($qs, $qs_array);
 
@@ -151,7 +151,7 @@ class Url
 
     public function value($key, $default = false)
     {
-        if ( strpos($key, '|') ) {
+        if (strpos($key, '|')) {
             $keys = explode('|', $key);
             foreach ($keys as $k) {
                 $v = $this->value($k, $default);
@@ -172,5 +172,4 @@ class Url
             return (isset($params[$key])) ? $params[$key] : $default;
         }
     }
-
 }

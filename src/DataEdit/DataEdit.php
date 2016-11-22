@@ -124,34 +124,30 @@ class DataEdit extends DataForm
         $result = parent::process();
         switch ($this->action) {
             case "update":
-
                 if ($this->on("error")) {
                     $this->status = "modify";
                 }
                 if ($this->on("success")) {
                     $this->status = "modify";
-                    if (in_array('update',$this->back_on)) {
+                    if (in_array('update', $this->back_on)) {
                         $this->redirect = $this->back_url;
                     } else {
                         $this->redirect = $this->url->replace('update' . $this->cid, 'show' . $this->cid)->get();
                     }
-
                 }
 
                 break;
             case "insert":
-
                 if ($this->on("error")) {
                     $this->status = "create";
                 }
                 if ($this->on("success")) {
                     $this->status = "show";
-                    if (in_array('insert',$this->back_on)) {
+                    if (in_array('insert', $this->back_on)) {
                         $this->redirect = $this->back_url;
                     } else {
                         $this->redirect = $this->url->remove('insert' . $this->cid)->append('show' . $this->cid, $this->model->getKey())->get();
                     }
-
                 }
                 break;
             case "delete":
@@ -159,12 +155,11 @@ class DataEdit extends DataForm
                     $this->message(trans('rapyd::rapyd.err'));
                 }
                 if ($this->on("success")) {
-                    if (in_array('do_delete',$this->back_on)) {
+                    if (in_array('do_delete', $this->back_on)) {
                         $this->redirect = $this->back_url;
                     } else {
                         $this->message(trans('rapyd::rapyd.deleted'));
                     }
-
                 }
                 break;
         }
@@ -185,7 +180,7 @@ class DataEdit extends DataForm
      * @param  string $uri
      * @return $this
      */
-    public function back($actions='insert|update|do_delete', $url="")
+    public function back($actions = 'insert|update|do_delete', $url = "")
     {
 
         if ($url == "") {
@@ -195,8 +190,8 @@ class DataEdit extends DataForm
                 return $this;
             }
         } else {
-            $base = str_replace(Request::path(),'',strtok(Request::fullUrl(),'?'));
-            $match_url = str_replace($base, '/', strtok($url,'?'));
+            $base = str_replace(Request::path(), '', strtok(Request::fullUrl(), '?'));
+            $match_url = str_replace($base, '/', strtok($url, '?'));
             if (Request::path()!= $match_url) {
                 $url = Persistence::get($match_url);
             }
@@ -223,14 +218,12 @@ class DataEdit extends DataForm
 
         //show
         if ($this->status == "show") {
-
             $this->link($this->url->replace('show' . $this->cid, 'modify' . $this->cid)->get(), trans('rapyd::rapyd.modify'), $showButtonPosition);
-
         }
 
         //modify
         if ($this->status == "modify") {
-            if (in_array('update',$this->back_on)) {
+            if (in_array('update', $this->back_on)) {
                 $this->link($this->back_url, trans('rapyd::rapyd.undo'), $undoButtonPosition);
             } else {
                 $this->link($this->url->replace('modify' . $this->cid, 'show' . $this->cid)->replace('update' . $this->cid, 'show' . $this->cid)->get(), trans('rapyd::rapyd.undo'), $modifyButtonPosition);
@@ -244,7 +237,7 @@ class DataEdit extends DataForm
         }
         //delete
         if ($this->status == "delete") {
-            if (in_array('do_delete',$this->back_on)) {
+            if (in_array('do_delete', $this->back_on)) {
                 $this->link($this->back_url, trans('rapyd::rapyd.undo'), $undoButtonPosition);
             } else {
                 $this->link($this->url->replace('delete' . $this->cid, 'show' . $this->cid)->replace('do_delete' . $this->cid, 'show' . $this->cid)->get(), trans('rapyd::rapyd.undo'), $deleteButtonPosition);
@@ -264,5 +257,4 @@ class DataEdit extends DataForm
     {
         return $this->getForm($view);
     }
-
 }

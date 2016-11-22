@@ -1,6 +1,5 @@
 <?php namespace Zofe\Rapyd;
 
-
 /**
  * Class DataEmbed
  * @package Zofe\Rapyd
@@ -24,7 +23,7 @@ class DataEmbed
         $url = $this->url;
         $id  = $this->id;
         \Rapyd::tag('tags/dataembed.html');
-        $this->output = view($view, compact('url','id'))->render();
+        $this->output = view($view, compact('url', 'id'))->render();
         
         return $this->output;
     }

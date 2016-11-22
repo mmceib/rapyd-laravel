@@ -13,5 +13,4 @@ class ArticleDetail extends \Eloquent
     {
         return $this->belongsTo('Zofe\Rapyd\Models\Article', 'article_id');
     }
-
 }

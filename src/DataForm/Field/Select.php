@@ -24,8 +24,9 @@ class Select extends Field
         $output = "";
 
         unset($this->attributes['type'], $this->attributes['size']);
-        if (parent::build() === false)
+        if (parent::build() === false) {
             return;
+        }
 
         switch ($this->status) {
             case "disabled":
@@ -51,5 +52,4 @@ class Select extends Field
         }
         $this->output = $output;
     }
-
 }

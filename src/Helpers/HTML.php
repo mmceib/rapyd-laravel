@@ -5,8 +5,9 @@ class HTML
 
     public static function buildAttributes(array $attributes = null)
     {
-        if (empty($attributes))
+        if (empty($attributes)) {
             return '';
+        }
 
         $compiled = '';
         foreach ($attributes as $key => $val) {
@@ -55,5 +56,4 @@ class HTML
 
         return $string;
     }
-
 }

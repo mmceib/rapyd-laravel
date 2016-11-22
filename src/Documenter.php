@@ -31,8 +31,9 @@ class Documenter
 
         $code       = "\n".$definition."\n....\n\n";
 
-        if (!is_array($methods))
+        if (!is_array($methods)) {
             $methods = array($methods);
+        }
 
         foreach ($methods as $method) {
             $method     = new ReflectionMethod($class, $method);
@@ -58,5 +59,4 @@ class Documenter
 
         return realpath(dirname($path).'/../../');
     }
-
 }

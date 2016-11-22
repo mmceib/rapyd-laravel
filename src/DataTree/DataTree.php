@@ -100,7 +100,6 @@ class DataTree extends DataGrid
         }
 
         if (!$var) {
-
             // the client submitted an empty tree, there's nothing to move
 
             return;
@@ -290,8 +289,10 @@ class DataTree extends DataGrid
 
             $cell = new Cell($column->name);
             $attrs = array();
-            $attrs['data-field-name'] = strpos($column->name,
-                '{{') === false ? $column->name : '_blade_' . $index;
+            $attrs['data-field-name'] = strpos(
+                $column->name,
+                '{{'
+            ) === false ? $column->name : '_blade_' . $index;
             $cell->attributes($attrs);
 
             $sanitize = (count($column->filters) || $column->cell_callable) ? false : true;

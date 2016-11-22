@@ -8,5 +8,4 @@ class Auto extends Field
     {
         return "";
     }
-
 }

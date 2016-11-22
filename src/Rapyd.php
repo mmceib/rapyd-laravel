@@ -29,14 +29,13 @@ class Rapyd
     /**
      * Get the Container from Rapyd
      *
-     * @param  string    $service 
+     * @param  string    $service
      * @return Container
      */
     public static function getContainer($service = null)
     {
 
         if ($service) {
-
             return static::$container->make($service);
         }
 
@@ -103,7 +102,7 @@ class Rapyd
         }
 
         if ($demo) {
-            $buffer .= HTML::style('packages/zofe/rapyd/assets/demo/style.css'); 
+            $buffer .= HTML::style('packages/zofe/rapyd/assets/demo/style.css');
         }
         //inline styles
         if (count(self::$styles)) {
@@ -117,20 +116,23 @@ class Rapyd
 
     public static function js($js)
     {
-        if (!in_array('packages/zofe/rapyd/assets/'.$js, self::$js))
+        if (!in_array('packages/zofe/rapyd/assets/'.$js, self::$js)) {
             self::$js[] = 'packages/zofe/rapyd/assets/'.$js;
+        }
     }
 
     public static function css($css)
     {
-        if (!in_array('packages/zofe/rapyd/assets/'.$css, self::$css))
+        if (!in_array('packages/zofe/rapyd/assets/'.$css, self::$css)) {
             self::$css[] = 'packages/zofe/rapyd/assets/'.$css;
+        }
     }
 
     public static function tag($tag)
     {
-        if (!in_array('packages/zofe/rapyd/assets/'.$tag, self::$tag))
+        if (!in_array('packages/zofe/rapyd/assets/'.$tag, self::$tag)) {
             self::$tag[] = 'packages/zofe/rapyd/assets/'.$tag;
+        }
     }
     
     public static function script($script)

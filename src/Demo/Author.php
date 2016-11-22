@@ -24,5 +24,4 @@ class Author extends \Eloquent
     {
         return $this->firstname ." ". $this->lastname;
     }
-
 }

@@ -9,6 +9,8 @@ class DataGrid extends Facade
    *
    * @return string
    */
-  protected static function getFacadeAccessor() { return 'Zofe\Rapyd\DataGrid\DataGrid'; }
-
+    protected static function getFacadeAccessor()
+    {
+        return 'Zofe\Rapyd\DataGrid\DataGrid';
+    }
 }

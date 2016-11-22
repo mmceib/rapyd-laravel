@@ -2,7 +2,8 @@
 
 use Baum\Node;
 
-class Menu extends Node {
+class Menu extends Node
+{
    
     protected $guarded = [];
 

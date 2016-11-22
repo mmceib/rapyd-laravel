@@ -9,6 +9,8 @@ class DataTree extends Facade
    *
    * @return string
    */
-  protected static function getFacadeAccessor() { return 'Zofe\Rapyd\DataTree\DataTree'; }
-
+    protected static function getFacadeAccessor()
+    {
+        return 'Zofe\Rapyd\DataTree\DataTree';
+    }
 }

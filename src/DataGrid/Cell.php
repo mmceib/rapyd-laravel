@@ -40,8 +40,9 @@ class Cell
 
     public function parseFilters($filters)
     {
-        if (count($filters) < 1)
+        if (count($filters) < 1) {
             return false;
+        }
 
         foreach ($filters as $filter) {
             $params = array();
@@ -62,16 +63,12 @@ class Cell
                 } catch (\Exception $e) {
                     return false;
                 }
-
             }
-
         }
-
     }
 
     public function __toString()
     {
         return $this->value;
     }
-
 }

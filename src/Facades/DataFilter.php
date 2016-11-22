@@ -9,6 +9,8 @@ class DataFilter extends Facade
    *
    * @return string
    */
-  protected static function getFacadeAccessor() { return 'Zofe\Rapyd\DataFilter\DataFilter'; }
-
+    protected static function getFacadeAccessor()
+    {
+        return 'Zofe\Rapyd\DataFilter\DataFilter';
+    }
 }

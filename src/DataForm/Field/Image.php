@@ -85,7 +85,9 @@ class Image extends File
     protected function imageProcess()
     {
         if ($this->saved) {
-            if (!$this->image)  $this->image = ImageManager::make($this->saved);
+            if (!$this->image) {
+                $this->image = ImageManager::make($this->saved);
+            }
 
             if ($this->image_callable) {
                 $callable = $this->image_callable;
@@ -105,26 +107,27 @@ class Image extends File
                     $this->image->save($fit["filename"]);
                 }
             }
-
         }
     }
 
     public function thumb()
     {
-        if (!\File::exists($this->path.$this->old_value)) return '';
+        if (!\File::exists($this->path.$this->old_value)) {
+            return '';
+        }
         return '<img src="'.ImageManager::make($this->path.$this->old_value)->fit($this->preview[0], $this->preview[1])->encode('data-url').'" class="pull-left" style="margin:0 10px 10px 0">';
     }
 
     public function build()
     {
         $output = "";
-        if (parent::build() === false)
+        if (parent::build() === false) {
             return;
+        }
 
         switch ($this->status) {
             case "disabled":
             case "show":
-
                 if ($this->type == 'hidden' || $this->value == "") {
                     $output = "";
                 } elseif ((!isset($this->value))) {
@@ -150,9 +153,9 @@ class Image extends File
                 $output = Form::hidden($this->name, $this->value);
                 break;
 
-            default:;
+            default:
+                ;
         }
         $this->output = "\n" . $output . "\n" . $this->extra_output . "\n";
     }
-
 }

@@ -72,7 +72,6 @@ class File extends Field
         $this->getValue();
 
         if ((($this->action == "update") || ($this->action == "insert"))) {
-
             if (Input::hasFile($this->name)) {
                 $this->file = Input::file($this->name);
 
@@ -87,7 +86,9 @@ class File extends Field
                 if ($this->upload_deferred) {
                     if (isset($this->model) and isset($this->db_name)) {
                         $this->model->saved(function () use ($filename) {
-                            if ($this->recursion) return;
+                            if ($this->recursion) {
+                                return;
+                            }
                             $this->recursion = true;
 
                             $this->path =  $this->parseString($this->path);
@@ -95,19 +96,18 @@ class File extends Field
                             $filename = $this->sanitizeFilename($filename);
                             $this->new_value = $filename;
                             if ($this->uploadFile($filename)) {
-                                if (is_a($this->relation, 'Illuminate\Database\Eloquent\Relations\Relation'))
+                                if (is_a($this->relation, 'Illuminate\Database\Eloquent\Relations\Relation')) {
                                     $this->updateRelations();
-                                else
+                                } else {
                                     $this->updateName(true);
+                                }
                             }
-
                         });
                         $this->model->save();
                     }
 
                 //direct upload
                 } else {
-
                     if ($this->uploadFile($filename)) {
                         if (is_object($this->model) and isset($this->db_name)) {
                             if (is_a($this->relation, 'Illuminate\Database\Eloquent\Relations\Relation')) {
@@ -120,9 +120,7 @@ class File extends Field
                         }
                     }
                 }
-
             } else {
-
                 //unlink
                 if (Input::get($this->name . "_remove")) {
                     $this->path =  $this->parseString($this->path);
@@ -133,7 +131,6 @@ class File extends Field
                         $this->new_value = null;
                         $this->value = null;
                         $this->updateRelations();
-
                     }
                     if (isset($this->model) && $this->model->offsetExists($this->db_name)) {
                         $this->model->setAttribute($this->db_name, null);
@@ -143,7 +140,6 @@ class File extends Field
                         return $this->model->save();
                     }
                 }
-
             }
         }
 
@@ -184,11 +180,13 @@ class File extends Field
      */
     public function move($path, $name = '', $unlinkable = true, $deferred = false)
     {
-        $this->path = rtrim($path,"/")."/";
+        $this->path = rtrim($path, "/")."/";
         $this->filename = $name;
         $this->unlink_file = $unlinkable;
         $this->upload_deferred = $deferred;
-        if (!$this->web_path) $this->web_path = $this->path;
+        if (!$this->web_path) {
+            $this->web_path = $this->path;
+        }
         return $this;
     }
 
@@ -208,7 +206,7 @@ class File extends Field
 
     public function webPath($path)
     {
-        $this->web_path = rtrim($path,"/")."/";
+        $this->web_path = rtrim($path, "/")."/";
 
         return $this;
     }
@@ -239,8 +237,7 @@ class File extends Field
     protected function updateName($save)
     {
         if (!(\Schema::connection($this->model->getConnectionName())->hasColumn($this->model->getTable(), $this->db_name)
-            || $this->model->hasSetMutator($this->db_name)))
-        {
+            || $this->model->hasSetMutator($this->db_name))) {
             return true;
         }
         if (isset($this->new_value)) {
@@ -259,13 +256,13 @@ class File extends Field
         $this->path =  $this->parseString($this->path);
         $this->web_path = $this->parseString($this->web_path);
         $output = "";
-        if (parent::build() === false)
+        if (parent::build() === false) {
             return;
+        }
 
         switch ($this->status) {
             case "disabled":
             case "show":
-
                 if ($this->type == 'hidden' || $this->value == "") {
                     $output = "";
                 } elseif ((!isset($this->value))) {
@@ -278,7 +275,6 @@ class File extends Field
 
             case "create":
             case "modify":
-
                 if ($this->old_value) {
                     $output .= '<div class="clearfix">';
                     $output .= link_to($this->web_path.$this->value, $this->value). "&nbsp;";
@@ -292,9 +288,9 @@ class File extends Field
                 $output = Form::hidden($this->name, $this->value);
                 break;
 
-            default:;
+            default:
+                ;
         }
         $this->output = "\n" . $output . "\n" . $this->extra_output . "\n";
     }
-
 }
